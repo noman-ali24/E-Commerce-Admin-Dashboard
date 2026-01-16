@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -6,13 +6,6 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import StatCard from '../../component/StatCard';
 import ChartCard from '../../component/ChartCard';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const statsData = [
-  { title: 'Total Orders', value: '2,450', change: '+55% than last week', icon: <ShoppingCartIcon />, color: '#800080' },
-  { title: 'Today\'s Customers', value: '2,300', change: '+3% than last month', icon: <PeopleIcon />, color: '#800080' },
-  { title: 'Revenue', value: '34k', change: '+1% than yesterday', icon: <AttachMoneyIcon />, color: '#800080' },
-  { title: 'Growth', value: '+91', change: 'Just updated', icon: <TrendingUpIcon />, color: '#800080' },
-];
 
 const websiteViewsData = [
   { name: 'M', value: 40 },
@@ -43,6 +36,15 @@ const categoryData = [
 ];
 
 const Dashboard = () => {
+  const theme = useTheme();
+
+  const statsData = [
+    { title: 'Total Orders', value: '2,450', change: '+55% than last week', icon: <ShoppingCartIcon />, color: theme.palette.primary.main },
+    { title: 'Today\'s Customers', value: '2,300', change: '+3% than last month', icon: <PeopleIcon />, color: theme.palette.primary.main },
+    { title: 'Revenue', value: '34k', change: '+1% than yesterday', icon: <AttachMoneyIcon />, color: theme.palette.primary.main },
+    { title: 'Growth', value: '+91', change: 'Just updated', icon: <TrendingUpIcon />, color: theme.palette.primary.main },
+  ];
+
   return (
     <Box 
       sx={{ 
@@ -58,7 +60,7 @@ const Dashboard = () => {
         sx={{ 
           mb: { xs: 3, md: 4 }, 
           fontWeight: 700, 
-          color: '#800080',
+          color: theme.palette.text.dark,
           fontSize: { xs: '24px', sm: '28px', md: '32px' },
         }}
       >
@@ -109,17 +111,17 @@ const Dashboard = () => {
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={websiteViewsData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis dataKey="name" stroke="#800080" />
-                <YAxis stroke="#800080" />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.custom.lightGrey} />
+                <XAxis dataKey="name" stroke={theme.palette.primary.main} />
+                <YAxis stroke={theme.palette.primary.main} />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#FFFFFF', 
-                    border: '1px solid #800080',
+                    backgroundColor: theme.palette.background.paper, 
+                    border: `1px solid ${theme.palette.primary.main}`,
                     borderRadius: '8px',
                   }} 
                 />
-                <Bar dataKey="value" fill="#800080" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="value" fill={theme.palette.primary.main} radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
@@ -141,13 +143,13 @@ const Dashboard = () => {
           >
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={salesData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis dataKey="name" stroke="#800080" />
-                <YAxis stroke="#800080" />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.custom.lightGrey} />
+                <XAxis dataKey="name" stroke={theme.palette.primary.main} />
+                <YAxis stroke={theme.palette.primary.main} />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#FFFFFF', 
-                    border: '1px solid #800080',
+                    backgroundColor: theme.palette.background.paper, 
+                    border: `1px solid ${theme.palette.primary.main}`,
                     borderRadius: '8px',
                   }} 
                 />
@@ -155,9 +157,9 @@ const Dashboard = () => {
                 <Line 
                   type="monotone" 
                   dataKey="value" 
-                  stroke="#800080" 
+                  stroke={theme.palette.primary.main} 
                   strokeWidth={3}
-                  dot={{ fill: '#800080', r: 4 }}
+                  dot={{ fill: theme.palette.primary.main, r: 4 }}
                   activeDot={{ r: 6 }}
                 />
               </LineChart>
@@ -181,19 +183,19 @@ const Dashboard = () => {
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={categoryData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis dataKey="name" stroke="#800080" />
-                <YAxis stroke="#800080" />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.custom.lightGrey} />
+                <XAxis dataKey="name" stroke={theme.palette.primary.main} />
+                <YAxis stroke={theme.palette.primary.main} />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#FFFFFF', 
-                    border: '1px solid #800080',
+                    backgroundColor: theme.palette.background.paper, 
+                    border: `1px solid ${theme.palette.primary.main}`,
                     borderRadius: '8px',
                   }} 
                 />
                 <Legend />
-                <Bar dataKey="orders" fill="#800080" radius={[8, 8, 0, 0]} />
-                <Bar dataKey="revenue" fill="#B366B3" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="orders" fill={theme.palette.primary.main} radius={[8, 8, 0, 0]} />
+                <Bar dataKey="revenue" fill={theme.palette.primary.light} radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
@@ -219,22 +221,22 @@ const Dashboard = () => {
           >
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={salesData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis dataKey="name" stroke="#800080" />
-                <YAxis stroke="#800080" />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.custom.lightGrey} />
+                <XAxis dataKey="name" stroke={theme.palette.primary.main} />
+                <YAxis stroke={theme.palette.primary.main} />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#FFFFFF', 
-                    border: '1px solid #800080',
+                    backgroundColor: theme.palette.background.paper, 
+                    border: `1px solid ${theme.palette.primary.main}`,
                     borderRadius: '8px',
                   }} 
                 />
                 <Line 
                   type="monotone" 
                   dataKey="value" 
-                  stroke="#800080" 
+                  stroke={theme.palette.primary.main} 
                   strokeWidth={3}
-                  dot={{ fill: '#800080', r: 5 }}
+                  dot={{ fill: theme.palette.primary.main, r: 5 }}
                   activeDot={{ r: 7 }}
                 />
               </LineChart>
@@ -256,17 +258,17 @@ const Dashboard = () => {
           >
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={categoryData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis dataKey="name" stroke="#800080" />
-                <YAxis stroke="#800080" />
+                <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.custom.lightGrey} />
+                <XAxis dataKey="name" stroke={theme.palette.primary.main} />
+                <YAxis stroke={theme.palette.primary.main} />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: '#FFFFFF', 
-                    border: '1px solid #800080',
+                    backgroundColor: theme.palette.background.paper, 
+                    border: `1px solid ${theme.palette.primary.main}`,
                     borderRadius: '8px',
                   }} 
                 />
-                <Bar dataKey="orders" fill="#800080" radius={[8, 8, 0, 0]} />
+                <Bar dataKey="orders" fill={theme.palette.primary.main} radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
