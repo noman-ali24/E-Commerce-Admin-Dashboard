@@ -32,6 +32,14 @@ const theme = createTheme({
       white: "#FFFFFF",
       dark: "#1A1A1A",
     },
+    custom: {
+      lightGarishPurple: "#D0A0D0",
+      lightGrey: "#E0E0E0",
+      lightGreyBorder: "#E0E0E0",
+      gatewayStripe: "#635BFF",
+      gatewayJazzCash: "#FF6B00",
+      gatewayEasypaisa: "#00A651",
+    },
     error: {
       main: "#d32f2f",
       light: "#ef5350",
@@ -41,6 +49,11 @@ const theme = createTheme({
       main: "#2e7d32",
       light: "#4caf50",
       dark: "#1b5e20",
+    },
+    warning: {
+      main: "#ff9800",
+      light: "#ffb74d",
+      dark: "#f57c00",
     },
   },
   typography: {

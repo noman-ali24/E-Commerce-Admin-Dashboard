@@ -1,18 +1,19 @@
-import { Box, AppBar, Toolbar, Typography, IconButton, InputBase, Badge } from '@mui/material';
+import { Box, AppBar, Toolbar, Typography, IconButton, InputBase, Badge, useTheme, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 
 const SearchBox = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: '#FFFFFF',
-  border: '1px solid #800080',
+  backgroundColor: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.custom.lightGarishPurple}`,
   '&:hover': {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#800080',
+    backgroundColor: theme.palette.background.paper,
+    borderColor: theme.palette.primary.light,
   },
   marginLeft: 0,
   width: '100%',
@@ -38,24 +39,46 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = () => {
+const Header = ({ handleDrawerToggle }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const drawerWidth = 280;
+
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: `calc(100% - 280px)`,
-        ml: '280px',
-        backgroundColor: '#FFFFFF',
-        color: '#800080',
+        width: { xs: '100%', sm: `calc(100% - ${drawerWidth}px)` },
+        ml: { xs: 0, sm: `${drawerWidth}px` },
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.primary.main,
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
       }}
     >
       <Toolbar>
-        <Typography variant="body2" sx={{ color: '#800080', mr: 2 }}>
+        {isMobile && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, color: theme.palette.primary.main }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            color: theme.palette.text.dark, 
+            mr: 2,
+            display: { xs: 'none', sm: 'block' }
+          }}
+        >
           Home / Dashboard
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
-        <SearchBox>
+        <SearchBox sx={{ display: { xs: 'none', md: 'flex' } }}>
           <Box
             sx={{
               padding: '0 16px',
@@ -67,17 +90,26 @@ const Header = () => {
               justifyContent: 'center',
             }}
           >
-            <SearchIcon sx={{ color: '#800080' }} />
+            <SearchIcon sx={{ color: theme.palette.custom.lightGarishPurple }} />
           </Box>
-          <StyledInputBase placeholder="Search here..." sx={{ color: '#800080' }} />
+          <StyledInputBase 
+            placeholder="Search here..." 
+            sx={{ 
+              color: theme.palette.custom.lightGarishPurple,
+              '&::placeholder': {
+                color: theme.palette.custom.lightGarishPurple,
+                opacity: 0.7,
+              },
+            }} 
+          />
         </SearchBox>
-        <IconButton sx={{ ml: 2, color: '#800080' }}>
+        <IconButton sx={{ ml: { xs: 0.5, sm: 2 }, color: theme.palette.custom.lightGarishPurple, '&:hover': { color: theme.palette.primary.light } }}>
           <AccountCircleIcon />
         </IconButton>
-        <IconButton sx={{ ml: 1, color: '#800080' }}>
+        <IconButton sx={{ ml: { xs: 0.5, sm: 1 }, color: theme.palette.custom.lightGarishPurple, '&:hover': { color: theme.palette.primary.light }, display: { xs: 'none', sm: 'flex' } }}>
           <SettingsIcon />
         </IconButton>
-        <IconButton sx={{ ml: 1, color: '#800080' }}>
+        <IconButton sx={{ ml: { xs: 0.5, sm: 1 }, color: theme.palette.custom.lightGarishPurple, '&:hover': { color: theme.palette.primary.light } }}>
           <Badge badgeContent={4} color="error">
             <NotificationsIcon />
           </Badge>

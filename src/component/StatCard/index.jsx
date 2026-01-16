@@ -1,17 +1,20 @@
-import { Card, CardContent, Box, Typography } from '@mui/material';
+import { Card, CardContent, Box, Typography, useTheme } from '@mui/material';
 
-const StatCard = ({ title, value, change, icon, color = '#800080' }) => {
+const StatCard = ({ title, value, change, icon, color }) => {
+  const theme = useTheme();
+  const cardColor = color || theme.palette.primary.main;
+
   return (
     <Card
       sx={{
-        background: `linear-gradient(135deg, ${color}, ${color}dd)`,
-        color: '#FFFFFF',
+        background: `linear-gradient(135deg, ${cardColor}, ${cardColor}dd)`,
+        color: theme.palette.text.white,
         borderRadius: 3,
         boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
         transition: 'transform 0.3s ease',
         width: '100%',
-        minWidth: 370,
-        minHeight: 200,
+        minWidth: {  sm: 385 },
+        minHeight: { xs: 140, sm: 160 },
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -24,19 +27,19 @@ const StatCard = ({ title, value, change, icon, color = '#800080' }) => {
       <CardContent sx={{ p: 3.5, '&:last-child': { pb: 3.5 } }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', height: '100%' }}>
           <Box sx={{ flex: 1, pr: 2 }}>
-            <Typography variant="body1" sx={{ opacity: 0.9, mb: 1.5, fontSize: '14px', fontWeight: 500 }}>
+            <Typography variant="body1" sx={{ opacity: 0.9, mb: 1.5, fontSize: '14px', fontWeight: 500, color: theme.palette.text.white }}>
               {title}
             </Typography>
-            <Typography variant="h3" sx={{ fontWeight: 700, mb: 1.5, fontSize: '36px', lineHeight: 1.1 }}>
+            <Typography variant="h3" sx={{ fontWeight: 500, mb: 1.5, fontSize: { xs: '28px', sm: '32px', md: '36px' }, lineHeight: 1.1, color: theme.palette.text.white }}>
               {value}
             </Typography>
-            <Typography variant="body2" sx={{ opacity: 0.9, fontSize: '13px', fontWeight: 500, color: '#FFFFFF' }}>
+            <Typography variant="body2" sx={{ opacity: 0.9, fontSize: '13px', fontWeight: 500, color: theme.palette.text.white }}>
               {change}
             </Typography>
           </Box>
           <Box
             sx={{
-              backgroundColor: 'rgba(255,255,255,0.2)',
+              backgroundColor: `${theme.palette.text.white}33`,
               borderRadius: 2,
               p: 2,
               display: 'flex',
